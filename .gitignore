@@ -1,0 +1,8 @@
+_skbuild
+.venv*
+build*
+*.egg-info
+.vscode
+__pycache__
+test_database*
+*.so
