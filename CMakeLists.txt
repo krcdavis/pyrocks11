@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Enable verbose output for debugging
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Set RocksDB source directory
 set(ROCKSDB_SOURCE_DIR "${CMAKE_SOURCE_DIR}/extern/rocksdb")
@@ -17,6 +17,7 @@ if(NOT EXISTS "${ROCKSDB_SOURCE_DIR}/CMakeLists.txt")
 endif()
 
 # RocksDB build options
+set(FAIL_ON_WARNINGS OFF CACHE BOOL "Needed for build on gcc 13 with ubuntu 24.04")
 set(WITH_GFLAGS OFF CACHE BOOL "Build with GFlags")
 set(WITH_SNAPPY OFF CACHE BOOL "Build with Snappy")
 set(WITH_LZ4 ON CACHE BOOL "Build with LZ4")
