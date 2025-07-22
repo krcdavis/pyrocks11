@@ -449,7 +449,8 @@ PYBIND11_MODULE(_rocksdb_cpp, m) {
         .def("create_iterator", &DBWrapper::create_iterator, py::keep_alive<0, 1>())
         .def("create_snapshot", &DBWrapper::create_snapshot)
         .def("release_snapshot", &DBWrapper::release_snapshot)
-        .def("close", &DBWrapper::close);
+        .def("close", &DBWrapper::close)
+        .def("list_column_families", &DBWrapper::list_column_families);
 
     // Register Iterator class
     py::class_<IteratorWrapper>(m, "cIterator")

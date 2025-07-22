@@ -182,3 +182,10 @@ void DBWrapper::close() {
         db->Close();
     db.reset();
 }
+
+
+
+char* DBWrapper::list_column_families() {
+    return( "list :)" );
+//std::unordered_map<std::string, ColumnFamilyHandle> cfh;
+}

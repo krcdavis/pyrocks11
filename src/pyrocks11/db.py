@@ -169,3 +169,10 @@ class RocksDB:
     
     def __exit__(self, exc_type: Optional[type], exc_val: Optional[BaseException], exc_tb: Optional[Any]) -> None:
         self.close()
+
+
+
+
+    def list_column_families(self) -> str:
+        #return "this is where my column families would go..... if I had one!!!"
+        return self._db.list_column_families()
