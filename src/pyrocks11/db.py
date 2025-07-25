@@ -173,6 +173,8 @@ class RocksDB:
 
 
 
-    def list_column_families(self) -> str:
+    def list_column_families(self) -> dict:
         #return "this is where my column families would go..... if I had one!!!"
+        #now receives an unordered_map which should now be a python dict...
+        #should literally just be called dict
         return self._db.list_column_families()

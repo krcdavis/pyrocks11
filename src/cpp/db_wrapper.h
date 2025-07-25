@@ -37,7 +37,8 @@ public:
     
     void close();
 
-    char* list_column_families();
+    //static...
+    std::unordered_map<std::string, ColumnFamilyHandle> list_column_families();
     
 private:
     DBWrapper(rdb::DB* db, const std::vector<rdb::ColumnFamilyDescriptor>& cf_desc, const std::vector<rdb::ColumnFamilyHandle*>& handles);

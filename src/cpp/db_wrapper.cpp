@@ -185,7 +185,12 @@ void DBWrapper::close() {
 
 
 
-char* DBWrapper::list_column_families() {
-    return( "list :)" );
-//std::unordered_map<std::string, ColumnFamilyHandle> cfh;
+std::unordered_map<std::string, ColumnFamilyHandle> DBWrapper::list_column_families() {
+    return( cfh );
+
+// std::unordered_map<std::string, ColumnFamilyHandle> cfh;
+//std::unique_ptr<DBWrapper> DBWrapper::open(
+//return std::unique_ptr<DBWrapper>(new DBWrapper(db, cf_desc, handles));
+
+    //return std::unique_ptr<std::unordered_map<std::string, ColumnFamilyHandle>(new std::unordered_map<std::string, ColumnFamilyHandle>( cfh ));
 }
