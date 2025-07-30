@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <optional>
 
+#include <iostream>
+
 DBWrapper::DBWrapper(rdb::DB* db, const std::vector<rdb::ColumnFamilyDescriptor>& cf_desc, 
     const std::vector<rdb::ColumnFamilyHandle*>& handles) : db(db) 
 {
@@ -86,6 +88,7 @@ std::unique_ptr<DBWrapper> DBWrapper::open(const std::string& path, const rdb::D
 
     return std::unique_ptr<DBWrapper>(new DBWrapper(db, cf_desc, handles));
 }
+
 
 ColumnFamilyHandle DBWrapper::get_column_family(const char* name) {
     auto s = cfh.find(name); 
@@ -187,10 +190,18 @@ void DBWrapper::close() {
 
 std::unordered_map<std::string, ColumnFamilyHandle> DBWrapper::list_column_families() {
     return( cfh );
+}
 
-// std::unordered_map<std::string, ColumnFamilyHandle> cfh;
-//std::unique_ptr<DBWrapper> DBWrapper::open(
-//return std::unique_ptr<DBWrapper>(new DBWrapper(db, cf_desc, handles));
 
-    //return std::unique_ptr<std::unordered_map<std::string, ColumnFamilyHandle>(new std::unordered_map<std::string, ColumnFamilyHandle>( cfh ));
+//static
+//should probably return status, pass column family results by reference?
+std::vector<std::string> DBWrapper::get_column_families(const std::string& dbname, const rdb::DBOptions& db_options) {
+    std::cout << "get col from " << dbname << std::endl;
+    std::vector<std::string> results;
+
+//options, &string name, std::vector<std::string>*
+    auto sts = rdb::DB::ListColumnFamilies( db_options, dbname, &results );
+//check status
+    std::cout << results[0] << std::endl;
+    return( results );
 }

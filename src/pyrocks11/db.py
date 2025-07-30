@@ -178,3 +178,12 @@ class RocksDB:
         #now receives an unordered_map which should now be a python dict...
         #should literally just be called dict
         return self._db.list_column_families()
+
+#okay
+    @classmethod
+    def get_column_families(cls, dbname) -> array.array:
+        dboptions = DBOptions()
+        dboptions.create_if_missing = True
+        clod = cls(cDB.get_column_families(dbname, dboptions))
+        print(clod)
+        return cls(cDB.get_column_families(dbname, dboptions))
