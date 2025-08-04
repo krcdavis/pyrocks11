@@ -37,8 +37,9 @@ public:
     
     void close();
 
-    //static...
     std::unordered_map<std::string, ColumnFamilyHandle> list_column_families();
+
+
 //std::unique_ptr<std::vector<std::string>>
 //std::vector<std::string>*
 
