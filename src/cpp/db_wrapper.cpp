@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+
 DBWrapper::DBWrapper(rdb::DB* db, const std::vector<rdb::ColumnFamilyDescriptor>& cf_desc, 
     const std::vector<rdb::ColumnFamilyHandle*>& handles) : db(db) 
 {
@@ -195,13 +196,19 @@ std::unordered_map<std::string, ColumnFamilyHandle> DBWrapper::list_column_famil
 
 //static
 //should probably return status, pass column family results by reference?
-std::vector<std::string> DBWrapper::get_column_families(const std::string& dbname, const rdb::DBOptions& db_options) {
-    std::cout << "get col from " << dbname << std::endl;
-    std::vector<std::string> results;
+//unique ptr?
 
-//options, &string name, std::vector<std::string>*
+//rdb::ColumnFamilyOptions
+
+std::unique_ptr<std::vector<std::string>> DBWrapper::get_column_families(const std::string& dbname, const rdb::DBOptions& db_options) {
+
+    static std::vector<std::string> results;
+
+//options, &string name, std::vector<std::string>*- not unique pointer.
     auto sts = rdb::DB::ListColumnFamilies( db_options, dbname, &results );
-//check status
-    std::cout << results[0] << std::endl;
-    return( results );
+
+    std::unique_ptr<std::vector<std::string>> results2 = std::make_unique<std::vector<std::string>>(*results);//yayy.
+    std::cout << results2->at(0) << std::endl;//yeah...
+
+    return(results2);//?
 }
