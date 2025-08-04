@@ -39,8 +39,10 @@ public:
 
     //static...
     std::unordered_map<std::string, ColumnFamilyHandle> list_column_families();
+//std::unique_ptr<std::vector<std::string>>
+//std::vector<std::string>*
 
-    static std::vector<std::string> get_column_families(const std::string& dbname, const rdb::DBOptions& db_options);
+    static std::unique_ptr<std::vector<std::string>> get_column_families(const std::string& dbname, const rdb::DBOptions& db_options);
     
 private:
     DBWrapper(rdb::DB* db, const std::vector<rdb::ColumnFamilyDescriptor>& cf_desc, const std::vector<rdb::ColumnFamilyHandle*>& handles);
@@ -48,4 +50,5 @@ private:
     std::unique_ptr<rdb::DB> db;
     std::unordered_map<std::string, ColumnFamilyHandle> cfh;
     rdb::ColumnFamilyHandle* default_cfh;
+
 };

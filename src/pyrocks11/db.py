@@ -181,9 +181,11 @@ class RocksDB:
 
 #okay
     @classmethod
-    def get_column_families(cls, dbname) -> array.array:
+    def get_column_families(cls, dbname) -> list[str]:
         dboptions = DBOptions()
         dboptions.create_if_missing = True
-        clod = cls(cDB.get_column_families(dbname, dboptions))
+        
+        clod = cls( cDB.get_column_families(dbname, dboptions) )
         print(clod)
-        return cls(cDB.get_column_families(dbname, dboptions))
+
+        return cls( cDB.get_column_families(dbname, dboptions) )
