@@ -16,6 +16,8 @@
 namespace py  = pybind11;
 namespace rdb = rocksdb;
 
+typedef std::vector<std::string> vecst;
+
 class DBWrapper {
 public:
     ~DBWrapper();
@@ -43,7 +45,7 @@ public:
 //std::unique_ptr<std::vector<std::string>>
 //std::vector<std::string>*
 
-    static std::unique_ptr<std::vector<std::string>> get_column_families(const std::string& dbname, const rdb::DBOptions& db_options);
+    static std::vector<std::string>* get_column_families(const std::string& dbname, const rdb::DBOptions& db_options);
     
 private:
     DBWrapper(rdb::DB* db, const std::vector<rdb::ColumnFamilyDescriptor>& cf_desc, const std::vector<rdb::ColumnFamilyHandle*>& handles);

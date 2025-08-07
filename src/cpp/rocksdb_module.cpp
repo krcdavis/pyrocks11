@@ -452,7 +452,7 @@ PYBIND11_MODULE(_rocksdb_cpp, m) {
         .def("close", &DBWrapper::close)
         .def("list_column_families", &DBWrapper::list_column_families)
         .def_static("get_column_families", &DBWrapper::get_column_families);
-//what an incredibly cool error to have missed all this time waow!!!!
+
 
     // Register Iterator class
     py::class_<IteratorWrapper>(m, "cIterator")

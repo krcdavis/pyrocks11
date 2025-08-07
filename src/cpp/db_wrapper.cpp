@@ -200,15 +200,12 @@ std::unordered_map<std::string, ColumnFamilyHandle> DBWrapper::list_column_famil
 
 //rdb::ColumnFamilyOptions
 
-std::unique_ptr<std::vector<std::string>> DBWrapper::get_column_families(const std::string& dbname, const rdb::DBOptions& db_options) {
-
-    std::vector<std::string>* results = new std::vector<std::string>();
+std::vector<std::string>* DBWrapper::get_column_families(const std::string& dbname, const rdb::DBOptions& db_options) {
+    vecst* results = new vecst();
 
 //options, &string name, std::vector<std::string>*- not unique pointer.
     auto sts = rdb::DB::ListColumnFamilies( db_options, dbname, results );
+//todo: check status...
 
-    std::unique_ptr<std::vector<std::string>> results2 = std::make_unique<std::vector<std::string>>(*results);//yayy.
-    std::cout << results2->at(0) << std::endl;//yeah...
-
-    return(results2);//.
+    return(results);//.
 }
