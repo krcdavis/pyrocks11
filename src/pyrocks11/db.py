@@ -186,3 +186,40 @@ class RocksDB:
         dboptions.create_if_missing = True
 
         return  cDB.get_column_families(dbname, dboptions) 
+
+    
+    @classmethod
+    def open_blind(cls, 
+             path : str, 
+             options : Optional[DBOptions] = None, 
+             #column_family_options : Optional[CFOptions|dict[str,CFOptions]] = None,
+             open_type : DbOpenBase = DbOpenRW()
+             ) -> RocksDB:
+        """
+        Open an existing RocksDB database "blindly" (without knowing column families).
+        Not the same as opening a new DB with an empty CFOptions, which creates it with the single default CF.
+        ->If DB path isn't found, consider also creating a default-CF DB... might be outside the scope of this function, but I think cDB.open just does that automatically anyway so just leave it
+        
+        Args:
+            path (str): Path to the database directory
+            options (Options, optional): Database options. If not provided, default options will be used.            
+        Returns:
+            DB: Database instance
+        """
+
+        if options is None:
+            options = DBOptions()
+            options.create_if_missing = True
+
+        #column_family_options is None, that's the whole point, so get cf names and create a new CFOptions
+        #column_family_options = CFOptions()
+
+        #this works yay (:
+        res = cls.get_column_families(path)
+        #next: allow get_c_f to take an optional dboptions instead of always making its own, if that matters. the options sent in to this function will be passed along to that one
+
+        column_family_options = {}
+        for thing in res:
+            column_family_options[thing] = CFOptions()
+
+        return cls(cDB.open(path, options, column_family_options, open_type))
